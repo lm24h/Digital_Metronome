@@ -1,5 +1,5 @@
 #pragma once 
-#include "IORegister_types.h"
+#include "metronome_defines.h"
 
 // Codes for remote inputs
 const uint8_t REMOTE_CODE_0 = 22; 
@@ -21,6 +21,7 @@ const uint8_t REMOTE_CODE_POWER = 69;
 extern "C" {
 #endif 
 
+void configTimer3();
 uint16_t waitForLevel(uint8_t level);
 uint32_t decodeRemoteCode();
 

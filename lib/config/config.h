@@ -1,5 +1,5 @@
 #pragma once
-#include "IORegister_types.h"
+#include "metronome_defines.h"
 
 #define WGM13 BIT4
 #define WGM12 BIT3
@@ -25,6 +25,9 @@ void configBoard() {
     // Set pin 11 as Input w/ pull-up resistor
     __clear_BIT(DIR_BIT_REG_PORTB, D11);   
     __set_BIT(OUT_BIT_REG_PORTB, D11); 
+
+    __set_BIT(DIR_BIT_REG_PORTE, IR_RECEIVE_PIN); // Set IR_RECEIVE_PIN as input
+    __set_BIT(OUT_BIT_REG_PORTE, IR_RECEIVE_PIN); // Enable pull
 } 
 
 void configTimer1(uint16_t topValue, uint8_t prescaler) {
@@ -37,12 +40,6 @@ void configTimer1(uint16_t topValue, uint8_t prescaler) {
     TIMER1_CTRL_REG_B   |= prescaler; // Start Timer1 with prescaler 
 }
 
-void configTimer3() {
-    // Configure Timer3 for free count 
-    TIMER3_CTRL_REG_A    = 0;            // normal operation, no PWM
-    TIMER3_CTRL_REG_B    = BIT0;   // no prescaler
-    TIMER3_COUNT_REG     = 0;            // Reset Timer3 count to 0
-}
 #ifdef __cplusplus
 } // extern "C"
 #endif

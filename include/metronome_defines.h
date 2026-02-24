@@ -29,6 +29,7 @@ typedef volatile uint16_t reg16_t;
 
 #define D13 BIT7
 #define D11 BIT5
+#define IR_RECEIVE_PIN BIT1
 
 // Sleep mode
 #define SMCR 0x53 // Sleep Mode Control Register
@@ -81,18 +82,26 @@ typedef volatile uint16_t reg16_t;
 #define OCR3AH 0x99
 #define OCR3AL 0x98
 
+// Defines for UART
+#define UBRR0H 0xC5
+#define UBRR0L 0xC4
+#define UCSR0A 0xC0
+#define UCSR0B 0xC1
+#define UCSR0C 0xC2
+#define UDR0   0xC6
 
 // Define some convenient macros for accessing the registers
 #define DIR_BIT_REG_PORTB (*(reg8_t *)DDRB)
 #define OUT_BIT_REG_PORTB (*(reg8_t *)PORTB)
+#define DIR_BIT_REG_PORTE (*(reg8_t *)DDRE)
+#define OUT_BIT_REG_PORTE (*(reg8_t *)PORTE)
 
+// Define macros for Timer 1 registers
 #define TIMER1_CTRL_REG_A   (*(reg8_t *)TCCR1A)
 #define TIMER1_CTRL_REG_B   (*(reg8_t *)TCCR1B)
 #define TIMER1_INT_MASK_REG (*(reg8_t *)TIMSK1)
-
 #define OUTPUT_CAP_REG_1A_H (*(reg8_t *)(OCR1AH)) // Output Compare Register A high byte for Timer1
 #define OUTPUT_CAP_REG_1A_L (*(reg8_t *)(OCR1AL)) // Output Compare Register A low byte for Timer1
-
 #define TIMER1_INT_FLAG_REG (*(reg8_t *)TIFR1) // Timer1 Interrupt Flag Register
 #define TIMER1_COUNT_REG    (*(reg16_t *)(TCNT1)) // Timer1 Counter Register
 
@@ -100,12 +109,18 @@ typedef volatile uint16_t reg16_t;
 #define TIMER3_CTRL_REG_A   (*(reg8_t *)TCCR3A)
 #define TIMER3_CTRL_REG_B   (*(reg8_t *)TCCR3B)
 #define TIMER3_INT_MASK_REG (*(reg8_t *)TIMSK3)
-
 #define OUTPUT_CAP_REG_3A_H (*(reg8_t *)(OCR3AH)) // Output Compare Register A high byte for Timer3
 #define OUTPUT_CAP_REG_3A_L (*(reg8_t *)(OCR3AL)) // Output Compare Register A low byte for Timer3
-
 #define TIMER3_INT_FLAG_REG (*(reg8_t *)TIFR3) // Timer3 Interrupt Flag Register
 #define TIMER3_COUNT_REG    (*(reg16_t *)(TCNT3)) // Timer3 Counter Register
+
+// Define macros for UART registers
+#define BAUD_RATE_REG0_HIGH (*(reg8_t *)UBRR0H)
+#define BAUD_RATE_REG0_LOW  (*(reg8_t *)UBRR0L)
+#define USART_CTL_STATUS_0A (*(reg8_t *)UCSR0A)
+#define USART_CTL_STATUS_0B (*(reg8_t *)UCSR0B)
+#define USART_CTL_STATUS_0C (*(reg8_t *)UCSR0C)
+#define USART_DATA_0        (*(reg8_t *)UDR0) // USART Data Register for UART0
 
 #define SLEEP_CTRL_REG (*(reg8_t *)SMCR) // Sleep Mode Control Register
 
@@ -120,5 +135,3 @@ typedef volatile uint16_t reg16_t;
 #define __stop_TIMER1()        ((TIMER1_CTRL_REG_B) &= ~0b00000111) // Stop Timer1
 #define HIGH_BYTE(value)       (((value) >> 8) & 0xFF)
 #define LOW_BYTE(value)        ((value) & 0xFF)
-
-
