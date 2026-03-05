@@ -28,6 +28,8 @@ typedef volatile uint16_t reg16_t;
 #define BIT7 0b10000000
 
 #define D13 BIT7
+#define D12 BIT6
+#define D5  BIT3
 #define D11 BIT5
 #define IR_RECEIVE_PIN BIT1
 
@@ -72,6 +74,7 @@ typedef volatile uint16_t reg16_t;
 #define TCNT1  0x84
 #define OCR1AH 0x89
 #define OCR1AL 0x88
+#define OCIF1A  BIT0 // Output Compare Interrupt Flag for Timer1 Compare Match A
 
 // Defines for Timer3
 #define TCCR3A 0x90
@@ -81,6 +84,9 @@ typedef volatile uint16_t reg16_t;
 #define TCNT3  0x94
 #define OCR3AH 0x99
 #define OCR3AL 0x98
+#define ICR3H  0x97
+#define ICR3L  0x96
+#define OCF3A  BIT1 // Output Compare Flag for Timer3 Compare Match A
 
 // Defines for UART
 #define UBRR0H 0xC5
@@ -93,6 +99,8 @@ typedef volatile uint16_t reg16_t;
 // Define some convenient macros for accessing the registers
 #define DIR_BIT_REG_PORTB (*(reg8_t *)DDRB)
 #define OUT_BIT_REG_PORTB (*(reg8_t *)PORTB)
+#define DIR_BIT_REG_PORTD (*(reg8_t *)DDRD)
+#define OUT_BIT_REG_PORTD (*(reg8_t *)PORTD)
 #define DIR_BIT_REG_PORTE (*(reg8_t *)DDRE)
 #define OUT_BIT_REG_PORTE (*(reg8_t *)PORTE)
 
@@ -113,6 +121,8 @@ typedef volatile uint16_t reg16_t;
 #define OUTPUT_CAP_REG_3A_L (*(reg8_t *)(OCR3AL)) // Output Compare Register A low byte for Timer3
 #define TIMER3_INT_FLAG_REG (*(reg8_t *)TIFR3) // Timer3 Interrupt Flag Register
 #define TIMER3_COUNT_REG    (*(reg16_t *)(TCNT3)) // Timer3 Counter Register
+#define INPUT_CAPTURE_REG_3H (*(reg8_t *)(ICR3H)) // Input Capture Register high byte for Timer3
+#define INPUT_CAPTURE_REG_3L (*(reg8_t *)(ICR3L)) // Input Capture Register low byte for Timer3
 
 // Define macros for UART registers
 #define BAUD_RATE_REG0_HIGH (*(reg8_t *)UBRR0H)
