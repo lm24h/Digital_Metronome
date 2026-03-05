@@ -1,6 +1,5 @@
 #pragma once
 #include "metronome_defines.h"
-#define F_CPU 16000000UL // Define CPU frequency for baud rate calculation
 
 // Defines for UART
 #define TXEN0  BIT3 // Transmitter Enable bit in UCSR0B

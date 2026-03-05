@@ -1,7 +1,6 @@
 #include "metronome_defines.h"
 #include "config.h"
 #include "remote.h"
-#include "UART.h"
 
 
 #define DELAY_1HZ 15624 // Calculated for 16MHz clock with prescaler 1024
@@ -28,9 +27,6 @@ int main() {
 
     // Configure Timer1 with a TOP value corresponding to 8-bit resolution (255)
      configTimer1(DELAY_1HZ, PRESCALER_64);
-
-    // Initialize UART for debugging 
-     UART_init();
      
     // Start with D13 HIGH
      __set_BIT(OUT_BIT_REG_PORTB, D13);
@@ -39,12 +35,10 @@ int main() {
      SLEEP_CTRL_REG = SLEEP_ENABLE;
 
     // Enable global interrupts
-     __global_interrupts(DISABLE); 
+     __global_interrupts(ENABLE); 
 
     while (true){
-        UART_transmit_uint(1); // Transmit the decoded code or 0 for invalid code
-        UART_transmit_char('\n'); // Transmit newline character for readability
-        for (volatile long i = 0; i < 200000; i++); // crude delay
+        asm volatile ("sleep");
     };
 
     return 0;
